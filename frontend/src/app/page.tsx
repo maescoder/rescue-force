@@ -37,6 +37,8 @@ export default function Home() {
     }
   };
 
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost/pet-rescue";
+
   return (
     <main className="relative w-full overflow-hidden bg-white">
 
@@ -51,22 +53,22 @@ export default function Home() {
         {/* ── NAVIGATION BAR ── */}
         <nav className="relative z-10 flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
           {/* Logo */}
-          <a href="/" onClick={(e) => handleNavClick(e, "http://localhost/pet-rescue/index.php", "fade")} className="text-3xl tracking-tight text-black font-display cursor-pointer">
+          <a href={`${BACKEND_URL}/index.php`} onClick={(e) => handleNavClick(e, `${BACKEND_URL}/index.php`, "fade")} className="text-3xl tracking-tight text-black font-display cursor-pointer">
             RescueForce<sup className="text-sm align-super">®</sup>
           </a>
 
           {/* Menu Items */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="http://localhost/pet-rescue/index.php" onClick={(e) => handleNavClick(e, "http://localhost/pet-rescue/index.php", "fade")} className="text-sm text-black transition-colors hover:text-black/60 cursor-pointer">Home</a>
-            <a href="http://localhost/pet-rescue/adoption.php" onClick={(e) => handleNavClick(e, "http://localhost/pet-rescue/adoption.php", "slideUp")} className="text-sm text-[#6F6F6F] transition-colors hover:text-black cursor-pointer">Adopt</a>
-            <a href="http://localhost/pet-rescue/report_submit.php" onClick={(e) => handleNavClick(e, "http://localhost/pet-rescue/report_submit.php", "curtain")} className="text-sm text-[#6F6F6F] transition-colors hover:text-black cursor-pointer">Report</a>
-            <a href="http://localhost/pet-rescue/admin_dashboard.php" onClick={(e) => handleNavClick(e, "http://localhost/pet-rescue/admin_dashboard.php", "slideUp")} className="text-sm text-[#6F6F6F] transition-colors hover:text-black cursor-pointer">Admin</a>
+            <a href={`${BACKEND_URL}/index.php`} onClick={(e) => handleNavClick(e, `${BACKEND_URL}/index.php`, "fade")} className="text-sm text-black transition-colors hover:text-black/60 cursor-pointer">Home</a>
+            <a href={`${BACKEND_URL}/adoption.php`} onClick={(e) => handleNavClick(e, `${BACKEND_URL}/adoption.php`, "slideUp")} className="text-sm text-[#6F6F6F] transition-colors hover:text-black cursor-pointer">Adopt</a>
+            <a href={`${BACKEND_URL}/report_submit.php`} onClick={(e) => handleNavClick(e, `${BACKEND_URL}/report_submit.php`, "curtain")} className="text-sm text-[#6F6F6F] transition-colors hover:text-black cursor-pointer">Report</a>
+            <a href={`${BACKEND_URL}/admin_dashboard.php`} onClick={(e) => handleNavClick(e, `${BACKEND_URL}/admin_dashboard.php`, "slideUp")} className="text-sm text-[#6F6F6F] transition-colors hover:text-black cursor-pointer">Admin</a>
           </div>
 
           {/* CTA */}
           <a
-            href="http://localhost/pet-rescue/adoption.php"
-            onClick={(e) => handleNavClick(e, "http://localhost/pet-rescue/adoption.php", "slideUp")}
+            href={`${BACKEND_URL}/adoption.php`}
+            onClick={(e) => handleNavClick(e, `${BACKEND_URL}/adoption.php`, "slideUp")}
             className="rounded-full px-6 py-2.5 text-sm bg-black text-white hover:scale-[1.03] transition-transform cursor-pointer"
           >
             Begin Journey
@@ -96,8 +98,8 @@ export default function Home() {
 
           {/* CTA Button */}
           <a
-            href="http://localhost/pet-rescue/adoption.php"
-            onClick={(e) => handleNavClick(e, "http://localhost/pet-rescue/adoption.php", "slideUp")}
+            href={`${BACKEND_URL}/adoption.php`}
+            onClick={(e) => handleNavClick(e, `${BACKEND_URL}/adoption.php`, "slideUp")}
             className="rounded-full px-14 py-5 text-base bg-black text-white mt-12 hover:scale-[1.03] transition-transform animate-fade-rise-delay-2 cursor-pointer"
           >
             Begin Journey

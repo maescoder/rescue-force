@@ -91,7 +91,8 @@ export default function ScrollExperience() {
   ];
 
   useEffect(() => {
-    fetch("http://localhost/pet-rescue/api/get_adoptions.php")
+    const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost/pet-rescue";
+    fetch(`${BACKEND_URL}/api/get_adoptions.php`)
       .then(res => res.json())
       .then(data => { if (Array.isArray(data)) setAdoptions(data); })
       .catch(() => {});
