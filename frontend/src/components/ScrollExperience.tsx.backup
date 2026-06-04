@@ -1,0 +1,300 @@
+"use client";
+import { Suspense, useRef, useState, useEffect, useMemo } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { useGLTF, useAnimations, Float, ContactShadows } from "@react-three/drei";
+import * as THREE from "three";
+
+// ─── ANIMATED 3D MODEL LOADER ────────────────────────────────────────
+
+function AnimatedModel({
+  url, scale = 1,
+  position = [0, 0, 0] as [number, number, number],
+  rotation = [0, 0, 0] as [number, number, number],
+  opacity = 1,
+  mousePos = { x: 0, y: 0 }
+}: {
+  url: string; scale?: number;
+  position?: [number, number, number];
+  rotation?: [number, number, number];
+  opacity?: number;
+  mousePos?: { x: number; y: number };
+}) {
+  const groupRef = useRef<THREE.Group>(null);
+  const { scene, animations } = useGLTF(url);
+  const { actions } = useAnimations(animations, groupRef);
+
+  const clonedScene = useMemo(() => {
+    const clone = scene.clone(true);
+    clone.traverse((child: any) => {
+      if (child.isMesh) {
+        child.material = child.material.clone();
+        child.material.transparent = true;
+        child.material.opacity = opacity;
+      }
+    });
+    return clone;
+  }, [scene]);
+
+  useEffect(() => {
+    clonedScene.traverse((child: any) => {
+      if (child.isMesh) child.material.opacity = opacity;
+    });
+  }, [opacity, clonedScene]);
+
+  useEffect(() => {
+    if (actions && Object.keys(actions).length > 0) {
+      const first = actions[Object.keys(actions)[0]];
+      if (first) first.reset().fadeIn(0.5).play();
+    }
+    return () => { if (actions) Object.values(actions).forEach(a => a?.fadeOut(0.5)); };
+  }, [actions]);
+
+  useFrame(() => {
+    if (groupRef.current) {
+      const targetRotY = mousePos.x * 0.5 + rotation[1];
+      const targetRotX = mousePos.y * 0.2 + rotation[0];
+      groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, targetRotY, 0.04);
+      groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, targetRotX, 0.04);
+    }
+  });
+
+  return (
+    <group ref={groupRef} position={position} scale={opacity > 0.01 ? scale : 0} rotation={rotation}>
+      <primitive object={clonedScene} />
+    </group>
+  );
+}
+
+// ─── ANIMAL STAGE (NO BLUE BLOB) ─────────────────────────────────────
+
+function AnimalStage({ scrollProgress, mousePos }: { scrollProgress: number; mousePos: { x: number; y: number } }) {
+  const ranges = {
+    flamingo: [0.05, 0.33],
+    parrot: [0.33, 0.62],
+    horse: [0.62, 0.90],
+  };
+
+  const getOpacity = (scroll: number, range: number[]) => {
+    const fadeIn = THREE.MathUtils.smoothstep(scroll, range[0], range[0] + 0.07);
+    const fadeOut = 1 - THREE.MathUtils.smoothstep(scroll, range[1] - 0.07, range[1]);
+    return fadeIn * fadeOut;
+  };
+
+  const flamingoOp = getOpacity(scrollProgress, ranges.flamingo);
+  const parrotOp = getOpacity(scrollProgress, ranges.parrot);
+  const horseOp = getOpacity(scrollProgress, ranges.horse);
+
+  return (
+    <>
+      {/* Flamingo */}
+      {flamingoOp > 0.01 && (
+        <Float speed={1.5} rotationIntensity={0.1} floatIntensity={0.3}>
+          <AnimatedModel url="/models/flamingo.glb" scale={0.025} position={[0.5, -0.8, 0]} rotation={[0, -0.6, 0]} opacity={flamingoOp} mousePos={mousePos} />
+        </Float>
+      )}
+
+      {/* Parrot */}
+      {parrotOp > 0.01 && (
+        <Float speed={2.5} rotationIntensity={0.2} floatIntensity={0.5}>
+          <AnimatedModel url="/models/parrot.glb" scale={0.035} position={[-0.5, 0.2, 0]} rotation={[0, 0.3, 0]} opacity={parrotOp} mousePos={mousePos} />
+        </Float>
+      )}
+
+      {/* Horse */}
+      {horseOp > 0.01 && (
+        <Float speed={1.2} rotationIntensity={0.08} floatIntensity={0.15}>
+          <AnimatedModel url="/models/horse.glb" scale={0.01} position={[0.3, -1.8, 0]} rotation={[0, -0.4, 0]} opacity={horseOp} mousePos={mousePos} />
+        </Float>
+      )}
+
+      {/* Premium lighting setup for white background */}
+      <ambientLight intensity={0.6} />
+      <directionalLight position={[5, 8, 5]} intensity={1.2} color="#ffffff" castShadow />
+      <directionalLight position={[-5, 3, -3]} intensity={0.4} color="#f0f0f0" />
+      <pointLight position={[0, 5, 5]} intensity={0.8} color="#ffffff" />
+
+      {/* Ground shadow for depth */}
+      <ContactShadows position={[0, -2, 0]} opacity={0.3} scale={10} blur={2.5} far={4} />
+    </>
+  );
+}
+
+// ─── DATA CARD (WHITE THEMED, GLASSMORPHIC) ──────────────────────────
+
+function DataCard({ animal, visible, side }: { animal: any; visible: boolean; side: "left" | "right" }) {
+  const [typedText, setTypedText] = useState("");
+  const narrative = animal?.narrative || "";
+
+  useEffect(() => {
+    if (!visible) { setTypedText(""); return; }
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < narrative.length) { setTypedText(narrative.slice(0, i + 1)); i++; }
+      else clearInterval(interval);
+    }, 22);
+    return () => clearInterval(interval);
+  }, [visible, narrative]);
+
+  const statusColor = animal?.status === "Critical" ? "text-red-500" : animal?.status === "approved" ? "text-emerald-600" : "text-amber-500";
+  const statusDot = animal?.status === "Critical" ? "bg-red-500 animate-pulse" : "bg-emerald-500";
+
+  return (
+    <div className={`fixed top-1/2 -translate-y-1/2 z-[100] w-[380px] transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${side === "left" ? "left-8" : "right-8"} ${visible ? "opacity-100 translate-x-0 scale-100" : side === "left" ? "opacity-0 -translate-x-12 scale-95" : "opacity-0 translate-x-12 scale-95"}`}>
+      <div className="bg-white/80 backdrop-blur-2xl border border-black/[0.06] rounded-2xl p-6 shadow-[0_8px_40px_rgba(0,0,0,0.08)]">
+        {/* Status */}
+        <div className="flex items-center gap-2 mb-3">
+          <div className={`w-2 h-2 rounded-full ${statusDot}`} />
+          <span className={`text-[10px] tracking-[0.3em] uppercase font-mono ${statusColor}`}>{animal?.statusLabel || "TRACKING"}</span>
+        </div>
+
+        {/* Case ID */}
+        <div className="text-black/25 text-[10px] font-mono tracking-widest mb-2">CASE #{animal?.id || "RF-0000"}</div>
+
+        {/* Name */}
+        <h3 className="text-2xl font-display text-black mb-1">{animal?.name || "Unknown"}</h3>
+        <p className="text-[#6F6F6F] text-xs font-mono mb-5">Species: {animal?.species || "—"} • {animal?.location || "—"}</p>
+
+        {/* Stats */}
+        <div className="space-y-3 mb-5">
+          <div>
+            <div className="flex justify-between text-[10px] font-mono text-black/40 mb-1"><span>RECOVERY</span><span>{animal?.recovery || 0}%</span></div>
+            <div className="w-full h-1.5 bg-black/[0.06] rounded-full overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-emerald-500 to-cyan-400 rounded-full transition-all duration-1000" style={{ width: `${animal?.recovery || 0}%` }} />
+            </div>
+          </div>
+          <div>
+            <div className="flex justify-between text-[10px] font-mono text-black/40 mb-1"><span>VITALS</span><span>STABLE</span></div>
+            <div className="w-full h-1.5 bg-black/[0.06] rounded-full overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-amber-400 to-orange-400 rounded-full" style={{ width: "82%" }} />
+            </div>
+          </div>
+        </div>
+
+        {/* Narrative */}
+        <div className="bg-black/[0.03] rounded-xl p-3 mb-5 min-h-[50px]">
+          <p className="text-[#6F6F6F] text-xs font-mono leading-relaxed">
+            <span className="text-emerald-600 font-bold">SYS &gt; </span>{typedText}<span className="animate-pulse text-black">▎</span>
+          </p>
+        </div>
+
+        {/* CTA */}
+        <div className="flex gap-3">
+          <a href="http://localhost/pet-rescue/adoption.php" className="flex-1 py-3 bg-black hover:bg-black/80 text-white text-xs font-bold uppercase text-center rounded-full transition-colors">Sponsor Recovery</a>
+          <a href="http://localhost/pet-rescue/admin_dashboard.php" className="flex-1 py-3 bg-black/[0.05] hover:bg-black/[0.1] text-black text-xs font-bold uppercase text-center rounded-full transition-colors">View Full Log</a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── MAIN EXPORT ─────────────────────────────────────────────────────
+
+export default function ScrollExperience() {
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [adoptions, setAdoptions] = useState<any[]>([]);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    fetch("http://localhost/pet-rescue/api/get_adoptions.php")
+      .then(res => res.json())
+      .then(data => { if (Array.isArray(data)) setAdoptions(data); })
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const sectionHeight = sectionRef.current.offsetHeight - window.innerHeight;
+      const scrolled = -rect.top;
+      setScrollProgress(Math.min(Math.max(scrolled / sectionHeight, 0), 1));
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const h = (e: MouseEvent) => setMousePos({ x: (e.clientX / window.innerWidth) * 2 - 1, y: -(e.clientY / window.innerHeight) * 2 + 1 });
+    window.addEventListener("mousemove", h);
+    return () => window.removeEventListener("mousemove", h);
+  }, []);
+
+  useEffect(() => {
+    useGLTF.preload("/models/flamingo.glb");
+    useGLTF.preload("/models/parrot.glb");
+    useGLTF.preload("/models/horse.glb");
+  }, []);
+
+  const animalPanels = useMemo(() => {
+    if (adoptions.length === 0) {
+      return [
+        { id: "RF-2847", name: "Caribbean Flamingo", species: "Phoenicopterus ruber", statusLabel: "STABILIZED", status: "pending", recovery: 72, location: "Wetland Sanctuary, Grid 12", narrative: "Discovered with severe wing lacerations near a polluted estuary. Emergency microsurgery performed. Currently in rehabilitation aviary. Flight tests scheduled for next week." },
+        { id: "RF-1903", name: "Scarlet Macaw", species: "Ara macao", statusLabel: "CRITICAL", status: "Critical", recovery: 34, location: "Canopy Unit, Sector 7", narrative: "Confiscated from illegal wildlife trafficking ring. Severe malnutrition and plumage damage. Intensive nutritional therapy and behavioral rehabilitation underway." },
+        { id: "RF-0561", name: "Andalusian Stallion", species: "Equus ferus caballus", statusLabel: "RECOVERED", status: "approved", recovery: 96, location: "Open Range, Zone 3", narrative: "Rescued from an abandoned ranch during wildfire evacuation. Minor smoke inhalation treated. Full recovery achieved. Cleared for sanctuary release." },
+      ];
+    }
+    return adoptions.slice(0, 3).map((a, i) => ({
+      id: `RF-${String(a.id).padStart(4, "0")}`,
+      name: a.pet_type ? a.pet_type.charAt(0).toUpperCase() + a.pet_type.slice(1) : "Unknown",
+      species: a.pet_type === "dog" ? "Canis lupus familiaris" : a.pet_type === "cat" ? "Felis catus" : a.pet_type || "Unknown",
+      statusLabel: a.status === "approved" ? "RESCUED" : a.status === "pending" ? "IN PROGRESS" : a.status?.toUpperCase(),
+      status: a.status,
+      recovery: a.status === "approved" ? 95 : a.status === "pending" ? 45 : 20,
+      location: a.living_situation === "house" ? "Suburban Rescue Zone" : a.living_situation === "apartment" ? "Urban Rescue Grid" : a.living_situation || "Field Station",
+      narrative: `Applicant: ${a.applicant_name}. ${a.status === "approved" ? "Rescue mission completed successfully. Animal stabilized, rehabilitated, and cleared for adoption into a verified loving home." : "Active rescue case. Veterinary team deployed. Continuous vital sign monitoring and medical support in progress."}`,
+    }));
+  }, [adoptions]);
+
+  const flamingoVisible = scrollProgress > 0.08 && scrollProgress < 0.31;
+  const parrotVisible = scrollProgress > 0.36 && scrollProgress < 0.60;
+  const horseVisible = scrollProgress > 0.65 && scrollProgress < 0.88;
+
+  // Title fades out as first animal comes in
+  const titleOpacity = 1 - THREE.MathUtils.smoothstep(scrollProgress, 0.0, 0.08);
+
+  return (
+    <div ref={sectionRef} className="relative" style={{ height: "500vh" }}>
+
+      {/* Subtle bg transition from white to very light gray */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#f8f8f8] to-white pointer-events-none" />
+
+      {/* STICKY 3D CANVAS (transparent bg so page white shows through) */}
+      <div className="sticky top-0 w-full h-screen z-0">
+        <Canvas camera={{ position: [0, 0, 5], fov: 50 }} gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}>
+          {/* No background color — transparent, page white shows through */}
+          <Suspense fallback={null}>
+            <AnimalStage scrollProgress={scrollProgress} mousePos={mousePos} />
+          </Suspense>
+        </Canvas>
+      </div>
+
+      {/* Section Header */}
+      <div className="sticky top-0 z-10 pointer-events-none h-0">
+        <div className="flex flex-col items-center justify-center h-screen text-center px-6" style={{ opacity: titleOpacity }}>
+          <p className="text-[10px] tracking-[0.5em] uppercase text-[#6F6F6F] mb-6">Live Rescue Network</p>
+          <h2 className="font-display text-5xl sm:text-7xl text-black" style={{ letterSpacing: "-2px", lineHeight: 0.95 }}>
+            Active <em className="text-[#6F6F6F] italic">rescue</em> cases.
+          </h2>
+          <p className="text-[#6F6F6F] text-sm mt-6 max-w-md leading-relaxed">
+            Scroll to explore each mission. Every creature below is a real case from our global rescue database.
+          </p>
+          <div className="mt-8 w-[1px] h-12 bg-gradient-to-b from-black/20 to-transparent animate-pulse" />
+        </div>
+      </div>
+
+      {/* Data Cards */}
+      <DataCard animal={animalPanels[0]} visible={flamingoVisible} side="left" />
+      <DataCard animal={animalPanels[1]} visible={parrotVisible} side="right" />
+      <DataCard animal={animalPanels[2]} visible={horseVisible} side="left" />
+
+      {/* Scroll Indicator (themed for white page) */}
+      <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-center gap-2">
+        <div className="w-[2px] h-20 bg-black/10 rounded-full overflow-hidden">
+          <div className="w-full bg-black rounded-full transition-all duration-150" style={{ height: `${scrollProgress * 100}%` }} />
+        </div>
+        <span className="text-[8px] font-mono text-black/30 tracking-widest">{Math.round(scrollProgress * 100)}%</span>
+      </div>
+    </div>
+  );
+}
