@@ -45,44 +45,6 @@ RescueForce is an award-winning, highly immersive full-stack web application des
 3.  **`/report`:** The "Command Center". A high-urgency dark-mode interface featuring the auto-tracking Leaflet map and CSS-animated emergency beacons.
 4.  **`/admin`:** A secure, sleek data dashboard featuring animated stat counters and live incident feeds for rescue coordinators.
 
-## 💻 Local Development Setup
-
-To run RescueForce on your local machine, follow these steps:
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/your-username/rescueforce.git
-cd rescueforce/frontend
-```
-
-### 2. Install dependencies
-```bash
-npm install
-```
-
-### 3. Configure Environment Variables
-Create a `.env` file in the root directory and add your Aiven MySQL credentials:
-```env
-DB_HOST=your-aiven-host.aivencloud.com
-DB_USER=avnadmin
-DB_PASS=your-secure-password
-DB_NAME=defaultdb
-DB_PORT=20159
-```
-
-### 4. Start the development server
-```bash
-npm run dev
-```
-
-Your application will now be running on `http://localhost:3000`.
-
-## 🎨 Design System
-
-RescueForce utilizes a strictly enforced dark-theme aesthetic designed to evoke both urgency (in emergencies) and warmth (in adoptions).
-*   **Primary Fonts:** `Inter` (Sans-serif) and `Instrument Serif` (Italics for elegant headings).
-*   **Animations:** Extensive use of CSS `@keyframes` (e.g., `gradient-shift`, `role-fade-in`) paired with GSAP ScrollTriggers.
-
 ---
 
 <div align="center">
