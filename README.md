@@ -48,5 +48,5 @@ RescueForce is an award-winning, highly immersive full-stack web application des
 ---
 
 <div align="center">
-  <p>Built with ❤️ by Maescoders to help animals find their forever homes.</p>
+  <p>Built with ❤️ by GC Coders to help animals find their forever homes.</p>
 </div>
