@@ -17,7 +17,7 @@
 
 ## 🌟 Overview
 
-RescueForce is a highly immersive full-stack web application designed to connect rescue centers, volunteers, and adoptive families. It leverages cutting-edge web technologies to deliver a experience, replacing boring web forms with interactive 3D galleries, real-time interactive mapping, and smooth GSAP/Framer Motion transitions.
+RescueForce is a highly immersive full-stack web application designed to connect rescue centers, volunteers, and adoptive families. It leverages cutting-edge web technologies to deliver a immersive experience, replacing boring web forms with interactive 3D galleries, real-time interactive mapping, and smooth GSAP/Framer Motion transitions.
 
 ## 🚀 Key Features
 
