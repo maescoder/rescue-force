@@ -19,8 +19,6 @@ if (!$applicant_name || !$email) {
 try {
     $stmt = $pdo->prepare("INSERT INTO adoptions (applicant_name, email, phone, pet_type, experience, living_situation, additional_info) VALUES (?, ?, ?, ?, ?, ?, ?)");
     $stmt->execute([$applicant_name, $email, $phone, $petType, $experience, $living, $additional]);
-    
-    // Attempt to send confirmation email
     sendAdoptionConfirmation($email, $applicant_name, $petType);
     
     echo json_encode(['success' => true, 'msg' => 'Adoption request submitted. We will contact you soon.']);
