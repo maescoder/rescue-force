@@ -2,8 +2,6 @@
 // admin_dashboard.php
 require_once __DIR__ . '/inc/auth.php';
 require_once __DIR__ . '/inc/db_config.php';
-
-// reuse same admin session as admin_add_animal.php
 $loggedIn = is_admin_logged_in();
 
 if (isset($_GET['logout'])) {
