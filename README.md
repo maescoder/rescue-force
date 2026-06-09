@@ -40,7 +40,7 @@ RescueForce is a highly immersive full-stack web application designed to connect
 
 ## 🗺️ Application Architecture
 
-1.  **`/` (Home):** The interactive 3D particle gallery showcasing animals currently up for adoption.
+1.  **`/` (Home):** The interactive gallery showcasing animals currently up for adoption.
 2.  **`/adopt`:** A premium, multi-step glassmorphic application form with a masonry grid of past "Success Stories".
 3.  **`/report`:** The "Command Center". A high-urgency dark-mode interface featuring the auto-tracking Leaflet map and CSS-animated emergency beacons.
 4.  **`/admin`:** A secure, sleek data dashboard featuring animated stat counters and live incident feeds for rescue coordinators.
