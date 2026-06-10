@@ -21,7 +21,7 @@ RescueForce is a full-stack web application designed to connect rescue centers, 
 
 ## 🚀 Key Features
 *   **🌍 Live Emergency Radar:** Built-in `Leaflet` maps that automatically ping the user's GPS location via the Browser Geolocation API and instantly Reverse-Geocode the coordinates into a street address for rapid emergency deployment.
-*   **🐶 3D Animal Gallery:** Interactive 3D particle backgrounds and immersive scrolling galleries utilizing `framer-motion` to showcase animals looking for their forever homes.
+*   **🐶 3D Animal Gallery:** Interactive 3D scrolling galleries utilizing `framer-motion` to showcase animals looking for their forever homes.
 *   **⚡ 100% Serverless Backend:** Fully migrated from traditional PHP to blazingly fast Next.js Serverless Route Handlers (`/api/animals`, `/api/submit-report`).
 *   **🗄️ Enterprise Database:** Powered by a highly-available, secure Aiven MySQL cloud database.
 
