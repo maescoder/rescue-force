@@ -17,7 +17,7 @@
 
 ## 🌟 Overview
 
-RescueForce is a highly immersive full-stack web application designed to connect rescue centers, volunteers, and adoptive families. It leverages cutting-edge web technologies to deliver a immersive experience, replacing boring web forms with interactive 3D galleries, real-time interactive mapping, and smooth GSAP/Framer Motion transitions.
+RescueForce is an award-winning, highly immersive full-stack web application designed to connect rescue centers, volunteers, and adoptive families. It leverages cutting-edge web technologies to deliver a cinematic, "Awwwards-style" experience, replacing boring web forms with interactive 3D galleries, real-time interactive mapping, and smooth GSAP/Framer Motion transitions.
 
 ## 🚀 Key Features
 
@@ -40,13 +40,51 @@ RescueForce is a highly immersive full-stack web application designed to connect
 
 ## 🗺️ Application Architecture
 
-1.  **`/` (Home):** The interactive gallery showcasing animals currently up for adoption.
-2.  **`/adopt`:** An application form with a masonry grid of past "Success Stories".
-3.  **`/report`:** The "Command Center". Aninterface featuring the auto-tracking Leaflet map and CSS-animated emergency beacons.
-4.  **`/admin`:** A dashboard featuring animated stat counters and live incident feeds for rescue coordinators.
+1.  **`/` (Home):** The interactive 3D particle gallery showcasing animals currently up for adoption.
+2.  **`/adopt`:** A premium, multi-step glassmorphic application form with a masonry grid of past "Success Stories".
+3.  **`/report`:** The "Command Center". A high-urgency dark-mode interface featuring the auto-tracking Leaflet map and CSS-animated emergency beacons.
+4.  **`/admin`:** A secure, sleek data dashboard featuring animated stat counters and live incident feeds for rescue coordinators.
+
+## 💻 Local Development Setup
+
+To run RescueForce on your local machine, follow these steps:
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/your-username/rescueforce.git
+cd rescueforce/frontend
+```
+
+### 2. Install dependencies
+```bash
+npm install
+```
+
+### 3. Configure Environment Variables
+Create a `.env` file in the root directory and add your Aiven MySQL credentials:
+```env
+DB_HOST=your-aiven-host.aivencloud.com
+DB_USER=avnadmin
+DB_PASS=your-secure-password
+DB_NAME=defaultdb
+DB_PORT=20159
+```
+
+### 4. Start the development server
+```bash
+npm run dev
+```
+
+Your application will now be running on `http://localhost:3000`.
+
+## 🎨 Design System
+
+RescueForce utilizes a strictly enforced dark-theme aesthetic designed to evoke both urgency (in emergencies) and warmth (in adoptions).
+*   **Primary Fonts:** `Inter` (Sans-serif) and `Instrument Serif` (Italics for elegant headings).
+*   **Animations:** Extensive use of CSS `@keyframes` (e.g., `gradient-shift`, `role-fade-in`) paired with GSAP ScrollTriggers.
 
 ---
 
 <div align="center">
-  <p>Built with ❤️ by GC Coders to help animals find their forever homes.</p>
+  <p>Built with ❤️ by Maescoders to help animals find their forever homes.</p>
 </div>

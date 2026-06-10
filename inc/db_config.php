@@ -1,9 +1,9 @@
 <?php
 // inc/db_config.php
-$DB_HOST = '127.0.0.1';
-$DB_NAME = 'pet_rescue';
-$DB_USER = 'root';
-$DB_PASS = ''; // XAMPP default is blank for root
+$DB_HOST = 'sql107.infinityfree.com';
+$DB_NAME = 'if0_42096528_pet_rescue';
+$DB_USER = 'if0_42096528';
+$DB_PASS = 'ymslQZg2rgDuE'; 
 
 $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

@@ -53,26 +53,16 @@ export default function Home() {
         {/* ── NAVIGATION BAR ── */}
         <nav className="relative z-10 flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
           {/* Logo */}
-          <a href={`${BACKEND_URL}/index.php`} onClick={(e) => handleNavClick(e, `${BACKEND_URL}/index.php`, "fade")} className="text-3xl tracking-tight text-black font-display cursor-pointer">
+          <a href="/" onClick={(e) => handleNavClick(e, "/", "fade")} className="text-3xl tracking-tight text-black font-display cursor-pointer">
             RescueForce<sup className="text-sm align-super">®</sup>
           </a>
 
-          {/* Menu Items */}
           <div className="hidden md:flex items-center gap-8">
-            <a href={`${BACKEND_URL}/index.php`} onClick={(e) => handleNavClick(e, `${BACKEND_URL}/index.php`, "fade")} className="text-sm text-black transition-colors hover:text-black/60 cursor-pointer">Home</a>
-            <a href={`${BACKEND_URL}/adoption.php`} onClick={(e) => handleNavClick(e, `${BACKEND_URL}/adoption.php`, "slideUp")} className="text-sm text-[#6F6F6F] transition-colors hover:text-black cursor-pointer">Adopt</a>
-            <a href={`${BACKEND_URL}/report_submit.php`} onClick={(e) => handleNavClick(e, `${BACKEND_URL}/report_submit.php`, "curtain")} className="text-sm text-[#6F6F6F] transition-colors hover:text-black cursor-pointer">Report</a>
-            <a href={`${BACKEND_URL}/admin_dashboard.php`} onClick={(e) => handleNavClick(e, `${BACKEND_URL}/admin_dashboard.php`, "slideUp")} className="text-sm text-[#6F6F6F] transition-colors hover:text-black cursor-pointer">Admin</a>
+            <a href="/" onClick={(e) => handleNavClick(e, "/", "fade")} className="text-sm text-black transition-colors hover:text-black/60 cursor-pointer">Home</a>
+            <a href="/adopt" onClick={(e) => handleNavClick(e, "/adopt", "slideUp")} className="text-sm text-[#6F6F6F] transition-colors hover:text-black cursor-pointer">Adopt</a>
+            <a href="/report" onClick={(e) => handleNavClick(e, "/report", "curtain")} className="text-sm text-[#6F6F6F] transition-colors hover:text-black cursor-pointer">Report</a>
+            <a href="/admin" onClick={(e) => handleNavClick(e, "/admin", "slideUp")} className="text-sm text-[#6F6F6F] transition-colors hover:text-black cursor-pointer">Admin</a>
           </div>
-
-          {/* CTA */}
-          <a
-            href={`${BACKEND_URL}/adoption.php`}
-            onClick={(e) => handleNavClick(e, `${BACKEND_URL}/adoption.php`, "slideUp")}
-            className="rounded-full px-6 py-2.5 text-sm bg-black text-white hover:scale-[1.03] transition-transform cursor-pointer"
-          >
-            Begin Journey
-          </a>
         </nav>
 
         {/* ── HERO CONTENT ── */}
@@ -90,7 +80,7 @@ export default function Home() {
           </h1>
 
           {/* Description */}
-          <p className="text-base sm:text-lg max-w-2xl mt-8 leading-relaxed text-[#6F6F6F] animate-fade-rise-delay">
+          <p className="text-base sm:text-lg max-w-2xl mt-8 leading-relaxed text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] font-medium animate-fade-rise-delay">
             Building an intelligent rescue network for brilliant minds, fearless
             volunteers, and compassionate souls. Through the chaos, we create
             digital havens for every creature in need.
@@ -98,9 +88,9 @@ export default function Home() {
 
           {/* CTA Button */}
           <a
-            href={`${BACKEND_URL}/adoption.php`}
-            onClick={(e) => handleNavClick(e, `${BACKEND_URL}/adoption.php`, "slideUp")}
-            className="rounded-full px-14 py-5 text-base bg-black text-white mt-12 hover:scale-[1.03] transition-transform animate-fade-rise-delay-2 cursor-pointer"
+            href="/adopt"
+            onClick={(e) => handleNavClick(e, "/adopt", "slideUp")}
+            className="rounded-full px-14 py-5 text-base font-medium bg-white/30 backdrop-blur-md text-black border border-white/50 mt-12 hover:bg-white/60 transition-colors animate-fade-rise-delay-2 cursor-pointer shadow-sm"
           >
             Begin Journey
           </a>

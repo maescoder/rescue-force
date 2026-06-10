@@ -1,5 +1,4 @@
-CREATE DATABASE IF NOT EXISTS pet_rescue ;
-USE pet_rescue;
+-- Database selected by user via phpMyAdmin
 
 CREATE TABLE IF NOT EXISTS animals (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -44,7 +43,7 @@ CREATE TABLE IF NOT EXISTS stats (
 -- initialize counter; change the number if you want
 INSERT INTO stats (stat_key, stat_value) VALUES ('rescued_count', 672)
   ON DUPLICATE KEY UPDATE stat_value = VALUES(stat_value);
-USE pet_rescue;
+-- No USE statement needed
 
 CREATE TABLE IF NOT EXISTS admins (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -58,7 +57,7 @@ CREATE TABLE IF NOT EXISTS admins (
 -- Password: adminpassword123
 INSERT IGNORE INTO admins (username, password_hash) 
 VALUES ('admin', '$2y$10$T1K.S7oN9m8bM0uWk/7.0.D4z6tJ5Kj2C1WjXQkC1cRk1Vf6Z5WbK');
-USE pet_rescue;
+-- No USE statement needed
 
 ALTER TABLE reports 
 ADD COLUMN latitude DECIMAL(10, 8) NULL AFTER location,

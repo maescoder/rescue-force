@@ -122,7 +122,7 @@ export default function ScrollExperience() {
     
     const columns = gsap.utils.toArray('.gallery-column');
     columns.forEach((col: any, index: number) => {
-      const speed = index === 1 ? -150 : index === 0 ? -50 : -100;
+      const speed = index === 1 ? -40 : index === 0 ? -15 : -25;
       gsap.to(col, {
         yPercent: speed,
         ease: "none",
@@ -200,7 +200,7 @@ export default function ScrollExperience() {
         <span className="absolute -bottom-6 text-[8px] font-mono text-cyan-400 tracking-widest whitespace-nowrap">VIEW DATA</span>
       </div>
 
-      <div className="max-w-[1600px] mx-auto px-6 py-[25vh]">
+      <div className="max-w-[1600px] mx-auto px-6 pt-[20vh] pb-12 md:-mb-[20vh]">
         
         {/* Section Header */}
         <div className="mb-32 text-center relative z-10">
