@@ -31,7 +31,6 @@ RescueForce is a full-stack web application designed to connect rescue centers, 
 | **Backend**      | Next.js Serverless APIs (`mysql2` connection pooling)                                                         |
 | **Database**     | Aiven Cloud MySQL                                                                                             |
 | **Deployment**   | Vercel (Frontend & Serverless Functions)                                                                      |
-
 ## 🗺️ Application Architecture
 
 1.  **`/` (Home):** The interactive gallery showcasing animals currently up for adoption.
