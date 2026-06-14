@@ -33,7 +33,6 @@ RescueForce is a full-stack web application designed to connect rescue centers, 
 | **Deployment**   | Vercel (Frontend & Serverless Functions)                                                                      |
 
 ## 🗺️ Application Architecture
-
 1.  **`/` (Home):** The interactive gallery showcasing animals currently up for adoption.
 2.  **`/adopt`:** A premium application form with a masonry grid of past "Success Stories".
 3.  **`/report`:** The "Command Center". An interface featuring the auto-tracking Leaflet map and CSS-animated emergency beacons.
