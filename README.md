@@ -11,7 +11,6 @@
     <img src="https://img.shields.io/badge/Aiven-MySQL-blue?style=for-the-badge&logo=mysql" alt="MySQL" />
   </p>
 </div>
-
 ---
 ## 🌟 Overview
 RescueForce is a full-stack web application designed to connect rescue centers, volunteers, and adoptive families. It leverages cutting-edge web technologies to deliver a cinematic experience, replacing boring web forms with interactive 3D galleries, real-time interactive mapping, and smooth GSAP/Framer Motion transitions.
