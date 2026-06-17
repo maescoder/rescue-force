@@ -2,7 +2,6 @@
   <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=1000&auto=format&fit=crop" alt="RescueForce Hero" width="100%" style="border-radius: 20px; object-fit: cover; max-height: 300px; margin-bottom: 20px;" />
   <h1>🐾 RescueForce</h1>
   <p><strong>Next-Generation Pet Rescue & Emergency Response Platform</strong></p>
-
   <p>
     <a href="https://rescue-force-app.vercel.app"><img src="https://img.shields.io/badge/Live%20Demo-Vercel-black?style=for-the-badge&logo=vercel" alt="Live Demo" /></a>
     <img src="https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js" alt="Next.js" />
