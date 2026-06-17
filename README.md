@@ -13,7 +13,6 @@
 ---
 ## 🌟 Overview
 RescueForce is a full-stack web application designed to connect rescue centers, volunteers, and adoptive families. It leverages cutting-edge web technologies to deliver a cinematic experience, replacing boring web forms with interactive 3D galleries, real-time interactive mapping, and smooth GSAP/Framer Motion transitions.
-
 ## 🚀 Key Features
 *   **🌍 Live Emergency Radar:** Built-in `Leaflet` maps that automatically ping the user's GPS location via the Browser Geolocation API and instantly Reverse-Geocode the coordinates into a street address for rapid emergency deployment.
 *   **🐶 3D Animal Gallery:** Interactive 3D scrolling galleries utilizing `framer-motion` to showcase animals looking for their forever homes.
