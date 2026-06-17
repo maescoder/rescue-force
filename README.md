@@ -46,7 +46,6 @@ To run RescueForce on your local machine, follow these steps:
 git clone https://github.com/your-username/rescueforce.git
 cd rescueforce/frontend
 ```
-
 ### 2. Install dependencies
 ```bash
 npm install
