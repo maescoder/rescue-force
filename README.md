@@ -42,6 +42,7 @@ RescueForce is a full-stack web application designed to connect rescue centers, 
 
 To run RescueForce on your local machine, follow these steps:
 ### 1. Clone the repository
+
 ```bash
 git clone https://github.com/your-username/rescueforce.git
 cd rescueforce/frontend
