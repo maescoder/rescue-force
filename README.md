@@ -60,7 +60,6 @@ DB_PASS=your-secure-password
 DB_NAME=defaultdb
 DB_PORT=20159
 ```
-
 ### 4. Start the development server
 ```bash
 npm run dev
