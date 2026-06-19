@@ -51,7 +51,6 @@ cd rescueforce/frontend
 ```bash
 npm install
 ```
-
 ### 3. Configure Environment Variables
 Create a `.env` file in the root directory and add your Aiven MySQL credentials:
 ```env
