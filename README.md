@@ -75,7 +75,6 @@ RescueForce utilizes a strictly enforced dark-theme aesthetic designed to evoke 
 *   **Animations:** Extensive use of CSS `@keyframes` (e.g., `gradient-shift`, `role-fade-in`) paired with GSAP ScrollTriggers.
 
 ---
-
 <div align="center">
   <p>Built with ❤️ by Maescoders to help animals find their forever homes.</p>
 </div>
