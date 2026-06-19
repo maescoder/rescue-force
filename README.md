@@ -65,7 +65,6 @@ DB_PORT=20159
 ```bash
 npm run dev
 ```
-
 Your application will now be running on `http://localhost:3000`.
 
 ## 🎨 Design System
