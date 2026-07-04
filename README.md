@@ -10,6 +10,7 @@
     <img src="https://img.shields.io/badge/Aiven-MySQL-blue?style=for-the-badge&logo=mysql" alt="MySQL" />
   </p>
 </div>
+
 ---
 
 ## 🌟 Overview
