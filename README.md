@@ -21,6 +21,7 @@ RescueForce is a full-stack web application designed to connect rescue centers, 
 *   **🐶 3D Animal Gallery:** Interactive 3D scrolling galleries utilizing `framer-motion` to showcase animals looking for their forever homes.
 *   **⚡ 100% Serverless Backend:** Fully migrated from traditional PHP to blazingly fast Next.js Serverless Route Handlers (`/api/animals`, `/api/submit-report`).
 *   **🗄️ Enterprise Database:** Powered by a highly-available, secure Aiven MySQL cloud database.
+  
 
 ## 🛠️ Tech Stack
 
